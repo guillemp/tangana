@@ -1,0 +1,58 @@
+html,body,h1,h2,h3,p,ul,li,form,input,textarea,button,select {margin:0;padding:0;}
+body {font-family:arial,sans-serif;font-size:13px;}
+a {color:#08C;}
+a:active, button:active {opacity:0.6}
+.clear {clear:both;}
+.wrap {max-width:760px;margin:0 auto;}
+
+.header {background:#34495e;padding:8px 15px;}
+.header a {text-decoration:none;color:white;font-size:26px;float:left;}
+
+.menu {float:right}
+.menu ul {list-style:none}
+.menu li {float:left;}
+.menu li a {float:left;display:block;font-size:14px;margin-left:15px;}
+
+.score {color:#2c3e50;position:relative;padding:20px;background:#ecf0f1;}
+.score:after {clear:both;display:table;content:"";}
+.score-logo {float:left;width:15%;text-align:center;}
+.score-team {float:left;width:25%;font-size:22px;text-align:center;}
+.score-num {float:left;width:10%;font-size:52px;text-align:center;}
+.score-date {position:absolute;width:200px;text-align:center;left:300px;bottom:30px;}
+
+.comment {padding:20px;position:relative;background:#FFF;border:1px solid #ecf0f1;margin-bottom:8px;}
+.comment-avatar {position:absolute;width:62px;}
+.comment-avatar img {border-radius:4px;}
+.comment-username {float:left;margin-left:62px;font-weight:bold;font-size:14px;}
+.comment-date {float:right;}
+.comment-content:before {clear:both;display:table;content:"";}
+.comment-content {margin-left:62px;font-size:14px;line-height:19px;}
+.comment-votes {float:left;margin-left:62px;font-size:14px;}
+.comment-votes a {text-decoration:none;}
+.comment-replies {float:right;font-size:14px;}
+.comment-replies a {text-decoration:none;}
+
+.vote-up {color:#2ecc71;}
+.vote-down {color:#e74c3c;}
+
+input,textarea,button,select {
+    font-family:arial,sans-serif;
+    font-size:14px;
+    outline:none;
+}
+
+textarea {
+    width:500px;
+    height:60px;
+    border:1px solid #CCC;
+    border-radius:4px;
+    padding:10px 15px;
+    line-height:19px;
+}
+button {
+    background:#e74c3c;
+    border:none;
+    color:white;
+    border-radius: 4px;
+    padding:10px;
+}
