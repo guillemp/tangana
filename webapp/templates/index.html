@@ -1,19 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% include "score.html" %}
-
-{% include "form.html" %}
-
-{% include "comment.html" %}
-{% include "comment.html" %}
-{% include "comment.html" %}
-{% include "comment.html" %}
-{% include "comment.html" %}
-{% include "comment.html" %}
-{% include "comment.html" %}
-{% include "comment.html" %}
-{% include "comment.html" %}
-{% include "comment.html" %}
+<div class="wrap">
+	<div class="rows">
+	{% for match in matches %}
+		{% include "row.html" %}
+	{% endfor %}
+	</div>
+</div>
 
 {% endblock %}

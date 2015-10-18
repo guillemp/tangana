@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.name
 
 class Match(models.Model):
     date = models.DateTimeField()
@@ -12,6 +15,9 @@ class Match(models.Model):
     away = models.ForeignKey(Team, related_name='away')
     home_score = models.IntegerField(default=0)
     away_score = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return "%s - %s" % (self.home.name, self.away.name)
 
 class Comment(models.Model):
     user = models.ForeignKey(User)
@@ -23,6 +29,12 @@ class Comment(models.Model):
     replies = models.IntegerField(default=0)
     ip = models.GenericIPAddressField()
     removed = models.BooleanField(default=False)
+    
+    def already_voted(self):
+        votes = Vote.objects.filter(user=self.user, comment=self)
+        if votes:
+            return True
+        return False
 
 class Vote(models.Model):
     user = models.ForeignKey(User)

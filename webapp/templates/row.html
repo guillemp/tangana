@@ -1,0 +1,11 @@
+<div class="score">
+	<a href="/match/{{ match.id }}" class="row">
+	<div class="score-logo"><img src="/static/img/logos/{{ match.home.id }}.png" width="50" height="50" /></div>
+	<div class="score-team">{{ match.home.name }}</div>
+	<div class="score-num" style="background:#404040;">{{ match.home_score }}</div>
+	<div class="score-date">DOM 20:30</div>
+	<div class="score-num" style="background:#2e2e2e;">{{ match.away_score }}</div>
+	<div class="score-team">{{ match.away.name }}</div>
+	<div class="score-logo"><img src="/static/img/logos/{{ match.away.id }}.png" width="50" height="50" /></div>
+	</a>
+</div>

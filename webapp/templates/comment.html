@@ -1,29 +1,40 @@
 {% load staticfiles %}
 <div class="comment" id="comment-{{ comment.id }}">
 	<div class="comment-avatar">
-		<img src="{% static 'img/goku.jpg' %}" width="50" height="50" />
+		<a href="#"><img src="{% static 'img/goku.jpg' %}" width="50" height="50" /></a>
 	</div>
-	<div class="comment-username">
-		<span>sonGoku187</span>
+	
+	<div class="comment-header">
+		<div class="comment-username">
+			<a href="#">sonGoku187</a>
+		</div>
+		<div class="comment-date">
+			<a href="/comment/{{ comment.id }}">Ayer a las 17:34</a>
+		</div>
+		<div class="clear"></div>
 	</div>
-	<div class="comment-date">
-		<span>Ayer a las 17:34</span>
-	</div>
+	
 	<div class="comment-content">
-		<p>Es una pena que quite al jugador que mayor rendimiento está dando en la línea de ataque. Por el otro lado, la "leyenda" del Madrid no defiende, no se baila ni un cono y sus tiros libres son para llorar. Benitez al igual que Ancelotti no sacan a Ronaldo o le exigen que defienda porque son unos cobardes.</p>
+		<p>{{ comment.content }}</p>
 	</div>
-	<div class="comment-votes">
-		<span class="vote-down"><i class="fa fa-circle"></i> -395</span>
-		
-		<a href="#" class="vote-up" data-comment-id="89"><i class="fa fa-arrow-circle-up"></i></a>
-		<a href="#" class="vote-down" data-comment-id="66"><i class="fa fa-arrow-circle-down"></i></a>
-		
+	
+	<div class="comment-footer">
+		<div class="comment-votes">
+			{% if comment.already_voted %}
+				<span class="vote-down"><i class="fa fa-circle"></i> {{ comment.votes }}</span>
+			{% else %}
+				<a href="#" class="vote-up" data-comment-id="{{ comment.id }}"><i class="fa fa-arrow-circle-up"></i></a>
+				<a href="#" class="vote-down" data-comment-id="{{ comment.id }}"><i class="fa fa-arrow-circle-down"></i></a>
+			{% endif %}
+		</div>
+		<div class="comment-replies">
+			{% if comment.replies > 0 %}
+			<a href="#" class="view-replies" data-comment-id="{{ comment.id }}">
+				<i class="fa fa-chevron-down"></i>
+				<span>{{ comment.replies }}</span>
+			</a>
+			{% endif %}
+		</div>
+		<div class="clear"></div>
 	</div>
-	<div class="comment-replies">
-		<a href="#" class="view-replies" data-comment-id="{{ comment.id }}">
-			<i class="fa fa-chevron-down"></i>
-			<span>4</span>
-		</a>
-	</div>
-	<div class="clear"></div>
 </div>

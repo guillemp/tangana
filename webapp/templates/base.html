@@ -10,29 +10,75 @@
 </head>
 <body>
 
-<div class="wrap">
-	<div class="header">
+<div class="header">
+	<div class="wrap">
 		<h1><a href="/">TANGANA</a></h1>
 		<div class="menu">
 			<ul>
-				<li><a href=""><strong>sonGoku187</strong></a></li>
-				<li><a href="">Logout</a></li>
+				{% if user.is_authenticated %}
+					<li><a href=""><strong>{{ request.user.username }}</strong></a></li>
+					<li><a href="/logout">Logout</a></li>
+				{% else %}
+					<li><a href="/login">Login</a></li>
+				{% endif %}
 			</ul>
 			<div class="clear"></div>
 		</div>
 		<div class="clear"></div>
 	</div>
+</div>
 	
-	<div class="content">
-	{% block content %}{% endblock %}
-	</div>
+<div class="content">
+{% block content %}{% endblock %}
+</div>
 	
-	<div class="footer">
-	</div>
+<div class="footer">
 </div>
 
 <script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+<script src="{% static 'js/highcharts/highcharts.js' %}"></script>
 <script src="{% static 'js/tangana.js' %}"></script>
+
+<script>
+$(function () {
+    $('#chart').highcharts({
+        title: {
+            text: 'Monthly Average Temperature',
+            x: -20 //center
+        },
+        subtitle: {
+            text: 'Source: WorldClimate.com',
+            x: -20
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: 'Temperature (°C)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '°C'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Tokyo',
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+        }]
+    });
+});
+</script>
 
 </body>
 </html>

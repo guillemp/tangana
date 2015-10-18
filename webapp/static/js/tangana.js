@@ -5,10 +5,22 @@ $(document).ready(function() {
     $('.vote-up').click(function() {
         var comment_id = $(this).data('commentId');
         if (comment_id > 0) {
-            var url = '/comments/'+comment_id+'/vote/';
-            $.post(url, function(data) {
+            var url = '/comment/'+comment_id+'/vote/';
+            $.post(url, {vote: 'up'}, function(data) {
                 console.log(data);
-                $('.comment-votes').html('9');
+                $('.comment-votes').html(data);
+            });
+        }
+        return false;
+    });
+    
+    $('.vote-down').click(function() {
+        var comment_id = $(this).data('commentId');
+        if (comment_id > 0) {
+            var url = '/comment/'+comment_id+'/vote/';
+            $.post(url, {vote: 'down'}, function(data) {
+                console.log(data);
+                $('.comment-votes').html(data);
             });
         }
         return false;

@@ -8,12 +8,13 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     #comments
     #url(r'^comments/$', views.comment_list, name='comment_list'),
-    #url(r'^comments/new/$', views.comment_create, name='comment_create'),
-    #url(r'^comments/(?P<comment_id>[0-9]+)/$', views.comment_detail, name='comment_detail'),
-    #url(r'^comments/(?P<comment_id>[0-9]+)/edit/$', views.comment_update, name='comment_update'),
-    #url(r'^comments/(?P<comment_id>[0-9]+)/delete/$', views.comment_delete, name='comment_delete'),
-    url(r'^comments/(?P<comment_id>[0-9]+)/vote/$', views.comment_vote, name='comment_vote'),
+    #url(r'^comment/new/$', views.comment_create, name='comment_create'),
+    url(r'^comment/(?P<comment_id>[0-9]+)/$', views.comment, name='comment'),
+    #url(r'^comment/(?P<comment_id>[0-9]+)/edit/$', views.comment_update, name='comment_update'),
+    #url(r'^comment/(?P<comment_id>[0-9]+)/delete/$', views.comment_delete, name='comment_delete'),
+    url(r'^comment/(?P<comment_id>[0-9]+)/vote/$', views.vote, name='vote'),
+    url(r'^comment/(?P<comment_id>[0-9]+)/chart/$', views.chart, name='chart'),
     #matches
     #url(r'^matches/$', views.match_list, name='match_list'),
-    #url(r'^matches/(?P<match_id>[0-9]+)/$', views.match_detail, name='match_detail'),
+    url(r'^match/(?P<match_id>[0-9]+)/$', views.match, name='match'),
 ]
