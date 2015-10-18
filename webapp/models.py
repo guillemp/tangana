@@ -31,6 +31,7 @@ class Comment(models.Model):
     removed = models.BooleanField(default=False)
     
     def already_voted(self):
+        return False
         votes = Vote.objects.filter(user=self.user, comment=self)
         if votes:
             return True

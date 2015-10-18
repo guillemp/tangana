@@ -25,7 +25,10 @@
 			{% else %}
 				<a href="#" class="vote-up" data-comment-id="{{ comment.id }}"><i class="fa fa-arrow-circle-up"></i></a>
 				<a href="#" class="vote-down" data-comment-id="{{ comment.id }}"><i class="fa fa-arrow-circle-down"></i></a>
+				{{ comment.votes }}
 			{% endif %}
+			
+			&nbsp;<a href="#">Responder</a>
 		</div>
 		<div class="comment-replies">
 			{% if comment.replies > 0 %}
@@ -38,3 +41,37 @@
 		<div class="clear"></div>
 	</div>
 </div>
+
+<!--
+<div class="wrap">
+	<div id="chart" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
+</div>
+-->
+
+<script src="/static/js/highcharts/highcharts.js"></script>
+<script>
+$(function () {
+	var url = '/comment/11/chart/';
+	$.getJSON(url, function(data) {
+	    $('#chart').highcharts({
+			chart: {type: 'spline'},
+	        title: {text: null},
+	        subtitle: {text: null},
+	        xAxis: {categories: data.categories, labels: {enabled: false}},
+	        yAxis: {
+				title: null,
+				labels: {enabled: false},
+				plotLines: [{
+					color: '#C0C0C0',
+					width: 2,
+					value: 0
+				}]
+			},
+			plotOptions: {series: {marker: {enabled: false}}},
+	        legend: {enabled: false},
+			credits: {enabled: false},
+	        series: data.series
+	    });
+	});
+});
+</script>

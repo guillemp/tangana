@@ -2,8 +2,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render, render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.utils import timezone
+from django.http import HttpResponse, JsonResponse
+from datetime import datetime
 from django.contrib.auth.models import User
 from .models import *
 
@@ -13,13 +13,25 @@ def index(request):
         'matches': matches,
     })
 
-def match(request, match_id):
+def match(request, match_id, order_by='-id'):
     match = get_object_or_404(Match, pk=match_id)
-    comments = Comment.objects.filter(match=match).order_by('-id')
+    
+    if request.POST:
+        comment = Comment()
+        comment.user = request.user
+        comment.content = request.POST.get('content')
+        comment.match = match
+        comment.ip = get_client_ip(request)
+        comment.save()
+    
+    comments = Comment.objects.filter(match=match).order_by(order_by)
     return render(request, 'match.html', {
         'match': match,
         'comments': comments,
     })
+
+def match_votes(request, match_id):
+    return match(request, match_id, '-votes')
 
 def comment(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
@@ -31,11 +43,38 @@ def comment(request, comment_id):
 
 def chart(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
-    votes = Vote.objects.filter(comment=comment)
-    return render(request, 'chart.html', {
-        'comment': comment,
-        'votes': votes,
-    })
+    votes = Vote.objects.filter(comment=comment).order_by('pub_date')
+    
+    data = []
+    series = []
+    categories = []
+    
+    value = 0
+    for vote in votes:
+        data.append(value)
+        value += vote.value
+        categories.append(vote.pub_date)
+    
+    diff = votes[41].pub_date - votes[0].pub_date
+    #for day in range(0, diff.seconds):
+        #print day
+        #print day
+        #current_date = (dt_start_date + timedelta(days = day_offset)).strftime("%Y-%m-%d")
+        #data.append(date_mentions_dict.get(current_date,0))
+        #categories.add(current_date)
+    
+    serie = {
+        'name': 'votes',
+        'data': data,
+    }
+    series.append(serie)
+        
+    json = {
+       'categories': categories,
+       'series': series,
+    }
+    
+    return JsonResponse(json)
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')

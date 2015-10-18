@@ -4,7 +4,26 @@
 {{ comment.id }}
 
 <div class="wrap">
-<div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<div id="chart" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
 </div>
+
+<script src="/static/js/highcharts/highcharts.js"></script>
+<script>
+$(function () {
+	var cats = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    $('#chart').highcharts({
+        title: {text: null},
+        subtitle: {text: null},
+        xAxis: {categories: cats},
+        yAxis: {title: null},
+        legend: {enabled: false},
+		credits: {enabled: false},
+        series: [{
+            name: 'Tokyo',
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+        }]
+    });
+});
+</script>
 
 {% endblock %}
