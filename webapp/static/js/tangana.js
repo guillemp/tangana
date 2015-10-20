@@ -25,6 +25,14 @@ $(document).ready(function() {
         }
         return false;
     });
+    
+    
+    // prevent enters
+    $('#form_content').keypress(function(event) {
+        if (event.keyCode == '13') {
+            event.preventDefault();
+        }
+    });
 });
 
 function saveVote(voteType) {

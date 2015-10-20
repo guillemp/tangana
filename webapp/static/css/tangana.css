@@ -12,40 +12,59 @@
  *
  */
 html,body,h1,h2,h3,p,ul,li,form,input,textarea,button,select {margin:0;padding:0;}
-body {font-family:arial,helvetica,sans-serif;font-size:13px;}
-a {color:#08C;}
+body {font-family:Arial,Helvetica,"Lucida Grande",sans-serif;font-size:16px;background:#171717;}
+a {color:#27ae60;text-decoration:none;}
 a:active, button:active {opacity:0.6}
 .clear {clear:both;}
 .wrap {max-width:600px;margin:0 auto;}
 
-.header {background:#27ae60;padding:8px 15px;}
-.header a {text-decoration:none;color:white;font-size:26px;float:left;}
+.header {background:#1D1D1D;padding:8px 15px;border-bottom:1px solid #2F2F2F}
+.header h1 a {color:#2ecc71;text-decoration:none;font-size:26px;float:left;}
 
 .menu {float:right}
 .menu ul {list-style:none}
 .menu li {float:left;}
-.menu li a {float:left;display:block;font-size:14px;margin-left:20px;}
+.menu li a {float:left;display:block;font-size:14px;margin-left:20px;color:#919191;text-decoration:none}
 .menu li a:hover {text-decoration:underline}
 
-.score {background:#f2f2f2;color:#000;padding:20px;position:relative;margin-bottom:20px}
+.content {background:#1D1D1D;padding-bottom:40px;}
+
+.footer {background:#171717;border-top:1px solid #2F2F2F;padding:25px;color:#FFF;text-align:center;}
+.footer a {color:#919191;}
+
+.f {
+    background:url(/static/img/messi.jpg) center center;
+    background-size:cover;
+}
+
+.score {
+    background: -moz-linear-gradient(top,rgba(29,29,29,0.65) 0,rgba(29,29,29,1) 100%);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(29,29,29,0.5)),color-stop(100%,rgba(29,29,29,1)));
+    background: -webkit-linear-gradient(top,rgba(29,29,29,0.65) 0,rgba(29,29,29,1) 100%);
+    background: -o-linear-gradient(top,rgba(29,29,29,0.65) 0,rgba(29,29,29,1) 100%);
+    background: -ms-linear-gradient(top,rgba(29,29,29,0.65) 0,rgba(29,29,29,1) 100%);
+    background: linear-gradient(to bottom,rgba(29,29,29,0.65) 0,rgba(29,29,29,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#801d1d1d',endColorstr='#1d1d1d',GradientType=0);
+    color:#000;padding:20px;position:relative;margin-bottom:20px}
 .score:after {clear:both;display:table;content:"";}
 .score-logo {float:left;width:15%;text-align:center;}
-.score-team {float:left;width:25%;font-size:22px;text-align:center;}
+.score-team {color:#fff;float:left;width:25%;font-size:22px;text-align:center;}
 .score-num {color:#fff;float:left;width:10%;font-size:52px;text-align:center;}
 .score-date {position:absolute;width:200px;text-align:center;left:300px;bottom:30px;}
 
-.comment {padding:12px;position:relative;background:#FFF;border:1px solid #ecf0f1;margin-bottom:12px;}
+
+.comment {padding:20px 0;position:relative;background:none;border-bottom:1px solid #2F2F2F;margin-bottom:0;}
 .comment-avatar {position:absolute;width:62px;}
-.comment-avatar img {border-radius:4px;}
+.comment-avatar img {border-radius:50%;}
 .comment-header {margin-left:62px;margin-bottom:10px;}
-.comment-footer {margin-left:62px;margin-top:10px;}
-.comment-username a {display:block;float:left;font-weight:bold;color:#333;font-size:14px;text-decoration:none}
+.comment-footer {margin-left:62px;margin-top:10px;color:#fff;}
+.comment-username a {display:block;float:left;font-weight:bold;color:#919191;font-size:14px;text-decoration:none}
 .comment-username a:hover {text-decoration:underline}
-.comment-date a {display:block;float:right;color:#999;text-decoration:none}
+.comment-date a {display:block;float:right;color:#919191;text-decoration:none;font-size:11px;}
 .comment-date a:hover {text-decoration:underline}
 .comment-content:before {clear:both;display:table;content:"";}
 .comment-content {margin-left:62px;}
-.comment-content p {font-size:15px;line-height:1.4em;}
+.comment-content p {color:#919191;font-size:15px;line-height:1.4;}
 .comment-votes {float:left;font-size:14px;}
 .comment-votes a {text-decoration:none;}
 .comment-replies {float:right;font-size:14px;}
@@ -56,6 +75,8 @@ a:active, button:active {opacity:0.6}
 
 .row {display:block;}
 
+.form {margin-bottom:20px;text-align:center}
+
 input,textarea,button,select {
     font-family:arial,sans-serif;
     font-size:14px;
@@ -63,17 +84,19 @@ input,textarea,button,select {
 }
 
 textarea {
-    width:500px;
-    height:60px;
-    border:1px solid #CCC;
-    border-radius:4px;
+    width:480px;
+    height:50px;
+    border:1px solid #4E4E4E;
+    border-radius:1px;
     padding:10px 15px;
     line-height:19px;
+    background:#3E3E3E;
+    color:#EEE;
 }
 button {
     background:#27ae60;
+    border-radius:1px;
     border:none;
     color:white;
-    border-radius: 4px;
-    padding:10px;
+    padding:8px 12px;
 }

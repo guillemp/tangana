@@ -1,6 +1,6 @@
-<div class="">
+<div class="form">
 	<form method="post" action="">
-		<textarea name="content" placeholder="Escribe tu comentario..."></textarea>
+		<textarea name="content" id="form_content" placeholder="Escribe tu comentario..."></textarea>
 		<input type="hidden" name="match" value="{{ match.id }}">
 		{% csrf_token %}
 		<button>Enviar comentario</button>
