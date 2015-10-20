@@ -2,7 +2,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render, render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from datetime import datetime
 from django.contrib.auth.models import User
 from .models import *
@@ -16,6 +16,7 @@ def index(request):
 def match(request, match_id, order_by='-id'):
     match = get_object_or_404(Match, pk=match_id)
     
+    # post
     if request.POST:
         comment = Comment()
         comment.user = request.user
@@ -23,14 +24,29 @@ def match(request, match_id, order_by='-id'):
         comment.match = match
         comment.ip = get_client_ip(request)
         comment.save()
+        return HttpResponseRedirect('/match/%s' % match.id)
     
-    comments = Comment.objects.filter(match=match).order_by(order_by)
+    # comments
+    comment_list = Comment.objects.filter(match=match).order_by(order_by)
+    paginator = Paginator(comment_list, 10)
+    page = request.GET.get('page')
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
+    
+    # render
     return render(request, 'match.html', {
         'match': match,
         'comments': comments,
     })
 
 def match_votes(request, match_id):
+    return match(request, match_id, '-votes')
+
+def match_yours(request, match_id):
     return match(request, match_id, '-votes')
 
 def comment(request, comment_id):

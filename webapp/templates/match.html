@@ -6,9 +6,36 @@
 <div class="wrap">
 	{% include "form.html" %}
 	
+	<div class="tabs">
+		<ul>
+			<li><a href="/match/{{ match.id }}" class="active">Últimos</a></li>
+			<li><a href="/match/{{ match.id }}/votes">Más votados</a></li>
+			<li><a href="/match/{{ match.id }}/yours">Tus comentarios</a></li>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	
 	{% for comment in comments %}
 		{% include "comment.html" %}
 	{% endfor %}
+	
+	
+	<div class="pagination">
+	    <span class="step-links">
+	        {% if comments.has_previous %}
+	            <a href="?page={{ comments.previous_page_number }}">previous</a>
+	        {% endif %}
+
+	        <span class="current">
+	            Page {{ comments.number }} of {{ comments.paginator.num_pages }}.
+	        </span>
+
+	        {% if comments.has_next %}
+	            <a href="?page={{ comments.next_page_number }}">next</a>
+	        {% endif %}
+	    </span>
+	</div>
 </div>
+
 
 {% endblock %}

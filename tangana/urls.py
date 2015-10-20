@@ -18,4 +18,5 @@ urlpatterns = [
     #url(r'^matches/$', views.match_list, name='match_list'),
     url(r'^match/(?P<match_id>[0-9]+)/$', views.match, name='match'),
     url(r'^match/(?P<match_id>[0-9]+)/votes/$', views.match_votes, name='match_votes'),
+    url(r'^match/(?P<match_id>[0-9]+)/yours/$', views.match_yours, name='match_yours'),
 ]

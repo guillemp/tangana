@@ -24,20 +24,29 @@ a:active, button:active {opacity:0.6}
 .menu {float:right}
 .menu ul {list-style:none}
 .menu li {float:left;}
-.menu li a {float:left;display:block;font-size:14px;margin-left:20px;color:#919191;text-decoration:none}
-.menu li a:hover {text-decoration:underline}
+.menu li a {float:left;display:block;font-size:14px;line-height:26px;margin-left:20px;color:#919191;text-decoration:none;}
+.menu li a:hover {text-decoration:underline;}
 
 .content {background:#1D1D1D;padding-bottom:40px;}
 
 .footer {background:#171717;border-top:1px solid #2F2F2F;padding:25px;color:#FFF;text-align:center;}
 .footer a {color:#919191;}
 
+.tabs {margin-bottom:20px;border-bottom:1px solid #2F2F2F;}
+.tabs ul {list-style:none}
+.tabs li a {display:block;float:left;padding:12px;text-transform:uppercase;font-size:13px;border-bottom:2px solid transparent}
+.tabs li a:hover {color:white}
+.tabs li a.active {color:white;border-color:#27ae60}
+
+.pagination {color:#919191;font-size:13px;text-align:center;margin-top:20px;}
+
 .f {
-    background:url(/static/img/messi.jpg) center center;
+    background:url(/static/img/cover.jpeg) center center;
     background-size:cover;
 }
 
 .score {
+    position:relative;
     background: -moz-linear-gradient(top,rgba(29,29,29,0.65) 0,rgba(29,29,29,1) 100%);
     background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(29,29,29,0.5)),color-stop(100%,rgba(29,29,29,1)));
     background: -webkit-linear-gradient(top,rgba(29,29,29,0.65) 0,rgba(29,29,29,1) 100%);
@@ -45,12 +54,13 @@ a:active, button:active {opacity:0.6}
     background: -ms-linear-gradient(top,rgba(29,29,29,0.65) 0,rgba(29,29,29,1) 100%);
     background: linear-gradient(to bottom,rgba(29,29,29,0.65) 0,rgba(29,29,29,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#801d1d1d',endColorstr='#1d1d1d',GradientType=0);
-    color:#000;padding:20px;position:relative;margin-bottom:20px}
+    color:#fff;padding:20px;position:relative;margin-bottom:20px}
 .score:after {clear:both;display:table;content:"";}
 .score-logo {float:left;width:15%;text-align:center;}
-.score-team {color:#fff;float:left;width:25%;font-size:22px;text-align:center;}
-.score-num {color:#fff;float:left;width:10%;font-size:52px;text-align:center;}
-.score-date {position:absolute;width:200px;text-align:center;left:300px;bottom:30px;}
+.score-logo img {width:100px;height:100px;}
+.score-team {height:100px;line-height:100px;color:#fff;float:left;width:25%;font-size:20px;text-align:center;}
+.score-num {height:100px;line-height:100px;color:#fff;float:left;width:10%;font-size:42px;text-align:center;}
+.score-date {position:absolute;left:0;right:0;text-align:center;bottom:20px;font-size:12px;}
 
 
 .comment {padding:20px 0;position:relative;background:none;border-bottom:1px solid #2F2F2F;margin-bottom:0;}
@@ -58,7 +68,7 @@ a:active, button:active {opacity:0.6}
 .comment-avatar img {border-radius:50%;}
 .comment-header {margin-left:62px;margin-bottom:10px;}
 .comment-footer {margin-left:62px;margin-top:10px;color:#fff;}
-.comment-username a {display:block;float:left;font-weight:bold;color:#919191;font-size:14px;text-decoration:none}
+.comment-username a {display:block;float:left;font-weight:bold;color:#aaa;font-size:14px;text-decoration:none}
 .comment-username a:hover {text-decoration:underline}
 .comment-date a {display:block;float:right;color:#919191;text-decoration:none;font-size:11px;}
 .comment-date a:hover {text-decoration:underline}
@@ -86,17 +96,28 @@ input,textarea,button,select {
 textarea {
     width:480px;
     height:50px;
-    border:1px solid #4E4E4E;
-    border-radius:1px;
+    border:0px solid #4E4E4E;
+    border-radius:3px;
     padding:10px 15px;
     line-height:19px;
-    background:#3E3E3E;
-    color:#EEE;
+    background:#282828;
+    color:#a2a2a2;
+    resize:none;
 }
 button {
     background:#27ae60;
-    border-radius:1px;
+    border-radius:2px;
     border:none;
     color:white;
     padding:8px 12px;
+}
+
+@media screen and (max-width:540px) {
+    .comment {padding:20px 10px;}
+    
+    .score-logo img {width:50px;height:50px;}
+    .score-team {height:50px;line-height:50px;font-size:14px}
+    .score-num {height:50px;line-height:50px;}
+    
+    textarea {width:200px}
 }
