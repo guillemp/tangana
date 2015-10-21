@@ -12,7 +12,7 @@
  *
  */
 html,body,h1,h2,h3,p,ul,li,form,input,textarea,button,select {margin:0;padding:0;}
-body {font-family:Arial,Helvetica,"Lucida Grande",sans-serif;font-size:16px;background:#171717;}
+body {font-family:Arial,Helvetica,"Lucida Grande",sans-serif;font-size:16px;background:#171717;color:#919191}
 a {color:#27ae60;text-decoration:none;}
 a:active, button:active {opacity:0.6}
 .clear {clear:both;}
@@ -88,29 +88,33 @@ a:active, button:active {opacity:0.6}
 .form {margin-bottom:20px;text-align:center}
 
 input,textarea,button,select {
+    border:none;
     font-family:arial,sans-serif;
     font-size:14px;
     outline:none;
+    border-radius:3px;
+    background:#282828;
+    color:#a2a2a2;
 }
-
+input {
+    padding:8px 12px;
+}
 textarea {
     width:480px;
     height:50px;
-    border:0px solid #4E4E4E;
-    border-radius:3px;
+    resize:none;
     padding:10px 15px;
     line-height:19px;
-    background:#282828;
-    color:#a2a2a2;
-    resize:none;
 }
-button {
+button, .button {
     background:#27ae60;
     border-radius:2px;
-    border:none;
     color:white;
     padding:8px 12px;
 }
+
+.errorlist {list-style:none;background:red;margin-bottom:15px;padding:10px;}
+.errorlist li {color:#fff;font-size:13px;}
 
 @media screen and (max-width:540px) {
     .comment {padding:20px 10px;}

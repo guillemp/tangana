@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="wrap">
+	<form action="" method="post">
+		{{ form.errors }}
+		<input type="text" name="username">
+		<input type="password" name="password">
+		{% csrf_token %}
+		<input type="submit" class="button" value="Entrar">
+	</form>
+	
+	<a href="/login/reset">Reset password</a>
+</div>
+
+{% endblock %}
