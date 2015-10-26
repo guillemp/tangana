@@ -2,6 +2,14 @@
 {% block content %}
 
 <div class="wrap">
+	<div class="tabs">
+		<ul>
+			<li><a href="/" class="active">Próximos</a></li>
+			<li><a href="/">Finalizados</a></li>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	
 	<div class="rows">
 	{% for match in matches %}
 		{% include "row.html" %}

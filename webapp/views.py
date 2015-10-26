@@ -1,11 +1,14 @@
+# -*- coding: utf-8 -*-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render, render_to_response
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-from datetime import datetime
-from django.contrib.auth.models import User
+from .forms import *
 from .models import *
+
+COMMENTS_PER_PAGE = 10
 
 def index(request):
     matches = Match.objects.all()
@@ -13,23 +16,29 @@ def index(request):
         'matches': matches,
     })
 
-def match(request, match_id, order_by='-id'):
+
+def match_view(request, match_id, order_by='-id'):
     match = get_object_or_404(Match, pk=match_id)
+    comment_form = CommentForm()
     
-    # post
-    if request.POST:
-        comment = Comment()
-        comment.user = request.user
-        comment.content = request.POST.get('content')
-        comment.match = match
-        comment.ip = get_client_ip(request)
-        comment.save()
-        return HttpResponseRedirect('/match/%s' % match.id)
+    #if request.user.is_authenticated():
+    if request.method == "POST":
+        match_id = request.POST.get('match')
+        # check if user logged in
+        # check if post id equals get match_id
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.match = match
+            comment.ip = get_client_ip(request)
+            comment.save()
+            return HttpResponseRedirect(match.url())
     
-    # comments
     comment_list = Comment.objects.filter(match=match).order_by(order_by)
-    paginator = Paginator(comment_list, 10)
+    paginator = Paginator(comment_list, COMMENTS_PER_PAGE)
     page = request.GET.get('page')
+    
     try:
         comments = paginator.page(page)
     except PageNotAnInteger:
@@ -37,17 +46,20 @@ def match(request, match_id, order_by='-id'):
     except EmptyPage:
         comments = paginator.page(paginator.num_pages)
     
-    # render
     return render(request, 'match.html', {
         'match': match,
         'comments': comments,
+        'comment_form': comment_form,
     })
 
+
 def match_votes(request, match_id):
-    return match(request, match_id, '-votes')
+    return match_view(request, match_id, order_by='-votes')
+
 
 def match_yours(request, match_id):
-    return match(request, match_id, '-votes')
+    return match_view(request, match_id, order_by='-votes')
+
 
 def comment(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
@@ -57,9 +69,10 @@ def comment(request, comment_id):
         'comments': [comment],
     })
 
+
 def chart(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
-    votes = Vote.objects.filter(comment=comment).order_by('pub_date')
+    votes = Vote.objects.filter(comment=comment).order_by('created')
     
     data = []
     series = []
@@ -69,9 +82,9 @@ def chart(request, comment_id):
     for vote in votes:
         data.append(value)
         value += vote.value
-        categories.append(vote.pub_date)
+        categories.append(vote.created)
     
-    diff = votes[41].pub_date - votes[0].pub_date
+    diff = votes[41].created - votes[0].created
     #for day in range(0, diff.seconds):
         #print day
         #print day

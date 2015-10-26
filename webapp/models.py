@@ -1,6 +1,5 @@
+# -*- coding: utf-8 -*-
 from django.db import models
-from datetime import datetime
-from django.utils import timezone
 from django.contrib.auth.models import User
 
 class Team(models.Model):
@@ -8,6 +7,9 @@ class Team(models.Model):
     
     def __str__(self):
         return self.name
+    
+    def url(self):
+        return '/team/%s' % self.id
 
 class Match(models.Model):
     date = models.DateTimeField()
@@ -18,28 +20,40 @@ class Match(models.Model):
     
     def __str__(self):
         return "%s - %s" % (self.home.name, self.away.name)
+    
+    def url(self):
+        return '/match/%s' % self.id
 
 class Comment(models.Model):
     user = models.ForeignKey(User)
     match = models.ForeignKey(Match)
     content = models.TextField(max_length=500)
     parent = models.ForeignKey('self', null=True)
-    pub_date = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now_add=True)
     votes = models.IntegerField(default=0)
     replies = models.IntegerField(default=0)
-    ip = models.GenericIPAddressField()
     removed = models.BooleanField(default=False)
+    ip = models.GenericIPAddressField(blank=True, null=True)
+    
+    def url(self):
+        return '/comment/%s' % self.id
     
     def already_voted(self):
-        return False
-        votes = Vote.objects.filter(user=self.user, comment=self)
-        if votes:
-            return True
-        return False
+        return False #for debug only
+        return Vote.objects.filter(user=self.user, comment=self)
 
 class Vote(models.Model):
     user = models.ForeignKey(User)
     comment = models.ForeignKey(Comment)
     value = models.IntegerField(default=0)
-    pub_date = models.DateTimeField(default=timezone.now)
-    ip = models.GenericIPAddressField()
+    created = models.DateTimeField(auto_now_add=True)
+    ip = models.GenericIPAddressField(blank=True, null=True)
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    #avatar = models.ImageField(upload_to='pic_folder/', default='pic_folder/None/no-img.jpg')
+    
+    def url(self):
+        return '/user/%s' % self.user.username
+
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])

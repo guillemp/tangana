@@ -33,6 +33,18 @@ $(document).ready(function() {
             event.preventDefault();
         }
     });
+    
+    
+    
+    
+    
+    // Row click
+    $('.row').click(function() {
+        var permalink = $(this).data('permalink');
+        window.location = permalink;
+        return false;
+    });
+    
 });
 
 function saveVote(voteType) {

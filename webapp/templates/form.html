@@ -1,8 +1,16 @@
 <div class="form">
-	<form method="post" action="">
-		<textarea name="content" id="form_content" maxlength="500"></textarea>
-		<input type="hidden" name="match" value="{{ match.id }}">
+	{% if comment_form.errors %}
+		<div class="flash error">
+			{{ comment_form.content.errors }}
+		</div>
+	{% endif %}
+	
+	<form action="" method="post">
+		{% for field in comment_form %}
+			{{ field }}
+		{% endfor %}
 		{% csrf_token %}
-		<button>Enviar comentario</button>
+		<input type="hidden" name="match" value="{{ match.id }}">
+		<input type="submit" class="button" value="Enviar comentario">
 	</form>
 </div>

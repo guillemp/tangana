@@ -18,7 +18,8 @@
 		<div class="menu">
 			<ul>
 				{% if user.is_authenticated %}
-					<li><a href=""><strong>{{ request.user.username }}</strong></a></li>
+					<li><a href="/user/{{ request.user.username }}"><strong>{{ request.user.username }}</strong></a></li>
+					<li><a href="/settings">Ajustes</a></li>
 					<li><a href="/logout">Logout</a></li>
 				{% else %}
 					<li><a href="/login">Login</a></li>
