@@ -39,7 +39,7 @@ class Comment(models.Model):
         return '/comment/%s' % self.id
     
     def already_voted(self):
-        return False #for debug only
+        #return False #for debug only
         return Vote.objects.filter(user=self.user, comment=self)
 
 class Vote(models.Model):

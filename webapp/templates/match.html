@@ -4,7 +4,9 @@
 {% include "score.html" %}
 
 <div class="wrap">
-	{% include "form.html" %}
+	{% if user.is_authenticated %}
+		{% include "form.html" %}
+	{% endif %}
 	
 	<div class="tabs">
 		<ul>

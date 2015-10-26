@@ -1,8 +1,10 @@
-<div class="row" data-match-id="{{ match.id }}" data-permalink="{{ match.url }}">
-	<div class="row-logo"><img src="/static/img/logos/{{ match.home.id }}.png" alt="{{ match.home.name }}" /></div>
-	<div class="row-team">{{ match.home.name }}</div>
-	<div class="row-date"><span>FINALIZADO</span></div>
-	<div class="row-team">{{ match.away.name }}</div>
-	<div class="row-logo"><img src="/static/img/logos/{{ match.away.id }}.png" alt="{{ match.away.name }}" /></div>
-	<div class="clear"></div>
-</div>
+<li>
+	<a href="{{ match.url }}" data-match-id="{{ match.id }}">
+		<div class="row-logo"><img src="/static/img/logos/{{ match.home.id }}.png" alt="{{ match.home.name }}" /></div>
+		<div class="row-team">{{ match.home.name }}</div>
+		<div class="row-date"><span>FINALIZADO</span></div>
+		<div class="row-team">{{ match.away.name }}</div>
+		<div class="row-logo"><img src="/static/img/logos/{{ match.away.id }}.png" alt="{{ match.away.name }}" /></div>
+		<div class="clear"></div>
+	</a>
+</li>

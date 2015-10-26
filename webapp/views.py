@@ -21,19 +21,19 @@ def match_view(request, match_id, order_by='-id'):
     match = get_object_or_404(Match, pk=match_id)
     comment_form = CommentForm()
     
-    #if request.user.is_authenticated():
     if request.method == "POST":
-        match_id = request.POST.get('match')
-        # check if user logged in
-        # check if post id equals get match_id
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.user = request.user
-            comment.match = match
-            comment.ip = get_client_ip(request)
-            comment.save()
-            return HttpResponseRedirect(match.url())
+        if request.user.is_authenticated():
+            match_id = request.POST.get('match')
+            # check if user logged in
+            # check if post id equals get match_id
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.user = request.user
+                comment.match = match
+                comment.ip = get_client_ip(request)
+                comment.save()
+                return HttpResponseRedirect(match.url())
     
     comment_list = Comment.objects.filter(match=match).order_by(order_by)
     paginator = Paginator(comment_list, COMMENTS_PER_PAGE)
@@ -114,8 +114,10 @@ def get_client_ip(request):
     return ip
 
 @csrf_exempt
-@login_required
 def vote(request, comment_id):
+    if not request.user.is_authenticated():
+        return HttpResponse('User not logged in')
+    
     comment = get_object_or_404(Comment, pk=comment_id)
     user_ip = get_client_ip(request) # future check if ip exists
     vote_exists = False#Vote.objects.filter(user=request.user, comment=comment)

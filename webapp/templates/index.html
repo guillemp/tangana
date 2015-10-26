@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="wrap">
-	<div class="tabs">
+	<div class="tabs" style="padding-top:20px;">
 		<ul>
 			<li><a href="/" class="active">Próximos</a></li>
 			<li><a href="/">Finalizados</a></li>
@@ -10,11 +10,11 @@
 		<div class="clear"></div>
 	</div>
 	
-	<div class="rows">
+	<ul class="rows">
 	{% for match in matches %}
 		{% include "row.html" %}
 	{% endfor %}
-	</div>
+	</ul>
 </div>
 
 {% endblock %}

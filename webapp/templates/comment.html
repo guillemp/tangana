@@ -19,15 +19,30 @@
 	</div>
 	
 	<div class="comment-footer">
-		<div class="comment-votes">
-			{% if comment.already_voted %}
-				<span class="vote-down"><i class="fa fa-circle"></i> {{ comment.votes }}</span>
-			{% else %}
-				<a href="#" class="vote-up" data-comment-id="{{ comment.id }}"><i class="fa fa-arrow-circle-up"></i></a>
-				<a href="#" class="vote-down" data-comment-id="{{ comment.id }}"><i class="fa fa-arrow-circle-down"></i></a>
-				{{ comment.votes }}
+		<div id="comment-{{ comment.id }}-votes" class="comment-votes">
+			{% if user.is_authenticated %}
+				
+				{% if comment.already_voted %}
+					{% if comment.votes > 0 %}
+						<span class="vote-up"><i class="fa fa-arrow-circle-up"></i> {{ comment.votes }}</span>
+					{% else %}
+						<span class="vote-down"><i class="fa fa-arrow-circle-down"></i> {{ comment.votes }}</span>
+					{% endif %}
+				{% else %}
+					<a href="#" class="vote-action vote-up" data-comment-id="{{ comment.id }}" data-vote="up">
+						<i class="fa fa-arrow-circle-up"></i>
+					</a>
+					<a href="#" class="vote-action vote-down" data-comment-id="{{ comment.id }}" data-vote="down">
+						<i class="fa fa-arrow-circle-down"></i>
+					</a>
+				{% endif %}
+				
 			{% endif %}
-			&nbsp;&nbsp;<a href="#">Responder</a>
+			
+			
+			
+			
+			&nbsp;&nbsp;<a href="#" class="reply-comment"  data-comment-id="{{ comment.id }}">Responder</a>
 		</div>
 		<div class="comment-replies">
 			{% if comment.replies > 0 %}
@@ -38,6 +53,25 @@
 			{% endif %}
 		</div>
 		<div class="clear"></div>
+		<div id="comment-{{ comment.id }}-reply" style="display:none">
+			<div class="form">
+				{% if comment_form.errors %}
+					<div class="flash error">
+						{{ comment_form.content.errors }}
+					</div>
+				{% endif %}
+
+				<form action="" method="post">
+					{% for field in comment_form %}
+						{{ field }}
+					{% endfor %}
+					{% csrf_token %}
+					<input type="hidden" name="match" value="{{ match.id }}">
+					<input type="hidden" name="parent" value="{{ comment.id }}">
+					<input type="submit" class="button" value="Enviar comentario">
+				</form>
+			</div>
+		</div>
 	</div>
 </div>
 
